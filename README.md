@@ -44,3 +44,31 @@ Abaixo estão as regras/orientações para a entrega:
     * O desenho da arquitetura pode ser apenas uma **imagem** (.png, .jpg)
 
 **Você deverá apresentar a solução durante a entrevista técnica**
+
+
+## Para executar a API você deve realizar o build da imagem com os comandos
+
+```bash
+cd /app
+docker build . -t picpay-api
+docker run -d -p 8000:8000 picpay-api
+```
+## Em seguida você pode realizar as consultas chamando:
+``` bash
+Para subir o modelo:
+cd ../notebook
+curl -X POST "http://localhost:8000/model/load" -F "file=@models/model_params.pkl"
+```
+## Para executar uma predição:
+```bash
+curl --location 'http://localhost:8000/model/predict' \
+--header 'Content-Type: application/json' \
+--data '{
+    "dep_time": 311,
+    "arr_time": 500
+}'
+```
+## Para exibir o historico:
+```bash
+curl --location 'http://localhost:8000/model/history'
+```
